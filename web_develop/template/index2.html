@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+        <div class="fixed-header">
+            <div class>
+                <nav>
+                    <a href="/"><span style="font-size: 40px;">TASK DashBoard</span></a>
+                </nav>
+            </div>
+        </div>
+        <div>
+            <div class="col-lg-3" style="float: left;  max-height: 650px;max-width:400px; overflow-x:hidden;">
+                <div style="background-color: rgb(41, 41, 40);">
+
+                    <span style="color: rgb(255, 255, 255); text-align: center;"><h2>Top 10 countries list</h2></span>
+                </div>
+                <div>
+                    <canvas id="myChart" ></canvas>
+                </div>
+            <div class="col-lg-6"></div>
+            <div class="col-lg-3"></div>
+        </div>
+
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <!-- Load d3.js -->
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/data.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/offline-exporting.js"></script>
+    <script src="https://code.highcharts.com/mapdata/custom/world.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <!-- Flag sprites service provided by Martijn Lafeber, https://github.com/lafeber/world-flags-sprite/blob/master/LICENSE -->
+    <link rel="stylesheet" type="text/css" href="//github.com/downloads/lafeber/world-flags-sprite/flags32.css" />
+    <head>
+        <meta charset="UTF-8">
+        <title>DOMIN TASK</title>
+        <style>
+            table,th,td {border: lpx solid black;}
+        </style>
+    </head>
+
+    <style>
+        /* Add some padding on document's body to prevent the content
+        to go underneath the header and footer */
+        body{
+            padding-top: 60px;
+            padding-bottom: 40px;
+        }
+        .fixed-header, .fixed-footer{
+            width: 100%;
+            position: fixed;
+            background: #333;
+            padding: 10px 0;
+            color: #fff;
+        }
+        .fixed-header{
+            top: 0;
+        }
+        .fixed-footer{
+            bottom: 0;
+        }
+        .container{
+            width: 80%;
+            margin: 0 auto; /* Center the DIV horizontally */
+        }
+        nav a{
+            color: #fff;
+            text-decoration: none;
+            padding: 7px 25px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div>
+      <canvas id="myChart"></canvas>
+    </div>
+</body>
+
+<!--<script>-->
+
+<!--        // <block:setup:1>-->
+<!--        const data = {-->
+<!--          labels: {{ contryNames|safe  }},-->
+<!--          datasets: [{-->
+<!--            label: 'My First dataset',-->
+<!--            backgroundColor: 'rgb(255, 99, 132)',-->
+<!--            borderColor: 'rgb(255, 99, 132)',-->
+<!--            data: {{ bordrsLen|safe }},-->
+<!--          }]-->
+<!--        };-->
+<!--        // </block:setup>-->
+
+<!--        // <block:config:0>-->
+<!--        const config = {-->
+<!--          type: 'line',-->
+<!--          data,-->
+<!--          options: {}-->
+<!--        };-->
+<!--        // </block:config>-->
+
+<!--        module.exports = {-->
+<!--          actions: [],-->
+<!--          config: config,-->
+<!--        };-->
+
+<!--</script>-->
+<!--<script>-->
+<!--  // === include 'setup' then 'config' above ===-->
+
+<!--  var myChart = new Chart(-->
+<!--    document.getElementById('myChart'),-->
+<!--    config-->
+<!--  );-->
+<!--</script>-->
+
+
+<script>
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chartOptions = {
+                            legend: {
+                                display: false
+                                    },
+                            scales: {
+                                xAxes: [{
+                                    barPercentage:1
+                                    }],
+                                yAxes: [
+                                        // {barPercentage: 1},
+                                        // {gridLines:{drawBorder: false}},
+                                        {ticks: {display:false}},
+                                        // {ticks: {mirror: true}},
+                                        {display: false},
+
+                                        ],
+                            elements: {
+                                rectangle: {
+                                borderSkipped: 'left',
+                                }
+                            }
+                            }
+                        };
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'horizontalBar',
+
+        // The data for our dataset
+        data: {
+            labels: {{ contryNames|safe }},
+            datasets: [{
+                data: {{ bordrsLen|safe }},
+                label: 'Border Length',
+                barThickness:'flex',
+                backgroundColor:'#03a9fc',
+
+            }]
+        },
+
+
+
+        // Configuration options go here
+        options: chartOptions
+});
+</script>
+
+</html>
