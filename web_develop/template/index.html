@@ -18,7 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <head>
         <meta charset="UTF-8">
-        <title>DOMIN TASK</title>
+        <title>DASHBOARD</title>
         <style>
             table,th,td {border: lpx solid black;}
         </style>
@@ -54,13 +54,41 @@
             padding: 7px 25px;
             display: inline-block;
         }
+        .myTable {<!--from   ww  w .jav a  2s  .c  o m-->
+            border: solid 1px #DDEEEE;
+            border-collapse: collapse;
+            border-spacing: 0;
+            font: normal 13px Arial, sans-serif;
+        }
+        col:target {
+            background: #dedede;
+            background-color: #DDEFEF;
+            border: solid 1px #DDEEEE;
+            color: #336B6B;
+            padding: 10px;
+            text-align: left;
+            text-shadow: 1px 1px 1px #fff;
+        }
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        th {
+          background-color: #DDEFEF;
+          border: solid 1px ;
+          text-align: middle;
+          color: #336B6B;
+          padding: 10px;
+          text-shadow: 1px 1px 1px #fff;
+        }
     </style>
 </head>
 <body>
     <div class="fixed-header">
             <div class>
                 <nav>
-                    <a href="/"><span style="font-size: 40px;">DOMIN DashBoard</span></a>
+                    <a href="/"><span style="font-size: 40px;">Domin DashBoard</span></a>
                 </nav>
             </div>
     </div>
@@ -75,29 +103,40 @@
                 </div>
 
             </div>
-            <div class="col-lg-6" style="float: left;  max-height: 650px;max-width:600px; overflow-x:hidden;">
+            <div class="col-lg-6" style="float: left;  max-height: 650px;max-width:100px; ">
                 <br>
                 <br>
                 <div id="mapChart" style="height: 650px; width: 800px;"></div>
             </div>
 
-            <div class="col-lg-3" style="float: ;  max-height: 650px;max-width:600px; overflow-x:hidden;">
+            <div class="col-lg-3" style="float: centre;  max-height: 650px;max-width:800px; overflow-x:hidden;">
                  <div style="background-color: rgb(41, 41, 40);">
 
                     <span style="color: rgb(255, 255, 255); text-align: center;"><h2>List of Countries with China Borders</h2></span>
                 </div>
                 <div>
-                    <table>
-                        <td> Col 1 </td>
-                        <td> Col 2 </td>
-                        <td> Col 3 </td>
+                    <table class="myTable" border="1" cellpadding="5" cellspacing="5">
+
                         <tr>
-                            <td> val 1</td>
-                            <td> val 1</td>
-                            <td> val 1</td>
+                        <th> Name</a></th>
+                        <th > Region </th>
+                        <th > Area </th>
+                        <th > Population </th>
+                        <th > Flag </th>
                         </tr>
+                        {% for i in data%}
+                        <tr>
+                            <td>{{ i.name }} </td>
+                            <td>{{ i.region }} </td>
+                            <td>{{ i.area }} </td>
+                            <td>{{i.population}} </td>
+                            <td>{{i.flag}} </td>
+                        </tr>
+                        {% endfor %}
 
                     </table>
+
+
                 </div>
             </div>
     </div>

@@ -1,38 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-        <div class="fixed-header">
-            <div class>
-                <nav>
-                    <a href="/"><span style="font-size: 40px;">TASK DashBoard</span></a>
-                </nav>
-            </div>
-        </div>
-        <div>
-            <div class="col-lg-3" style="float: left;  max-height: 650px;max-width:400px; overflow-x:hidden;">
-                <div style="background-color: rgb(41, 41, 40);">
-
-                    <span style="color: rgb(255, 255, 255); text-align: center;"><h2>Top 10 countries list</h2></span>
-                </div>
-                <div>
-                    <canvas id="myChart" ></canvas>
-                </div>
-            <div class="col-lg-6"></div>
-            <div class="col-lg-3"></div>
-        </div>
-
-</body>
-</html>
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
     <meta charset="utf-8">
 
     <!-- Load d3.js -->
@@ -44,11 +12,10 @@
     <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/maps/modules/offline-exporting.js"></script>
     <script src="https://code.highcharts.com/mapdata/custom/world.js"></script>
-
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
-    <!-- Flag sprites service provided by Martijn Lafeber, https://github.com/lafeber/world-flags-sprite/blob/master/LICENSE -->
-    <link rel="stylesheet" type="text/css" href="//github.com/downloads/lafeber/world-flags-sprite/flags32.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <head>
         <meta charset="UTF-8">
         <title>DOMIN TASK</title>
@@ -90,75 +57,64 @@
     </style>
 </head>
 <body>
-    <div>
-      <canvas id="myChart"></canvas>
+    <div class="fixed-header">
+            <div class>
+                <nav>
+                    <a href="/"><span style="font-size: 40px;">DOMIN DashBoard</span></a>
+                </nav>
+            </div>
     </div>
+    <div>
+            <div class="col-lg-3" style="float: left;  max-height: 650px;max-width:400px; overflow-x:hidden;">
+                <div style="background-color: rgb(41, 41, 40);">
+
+                    <span style="color: rgb(255, 255, 255); text-align: center;"><h2>Top 10 countries list</h2></span>
+                </div>
+                <div>
+                  <canvas id="myChart" style="height: 450px; width: 380px;"></canvas>
+                </div>
+
+            </div>
+            <div class="col-lg-6" style="float: left;  max-height: 650px;max-width:100px; ">
+                <br>
+                <br>
+                <div id="mapChart" style="height: 650px; width: 800px;"></div>
+            </div>
+
+            <div class="col-lg-3" style="float: centre;  max-height: 650px;max-width:800px; overflow-x:hidden;">
+                 <div style="background-color: rgb(41, 41, 40);">
+
+                    <span style="color: rgb(255, 255, 255); text-align: center;"><h2>List of Countries with China Borders</h2></span>
+                </div>
+                <div>
+                    <table border="1" cellpadding="5" cellspacing="5">
+                        <td> Name </td>
+                        <td> Region </td>
+                        <td> Area </td>
+                        <td> Population </td>
+                        <td> Flag </td>
+                        {% for i in data%}
+                        <tr>
+                            <td>{{ i.name }} </td>
+                            <td>{{ i.region }} </td>
+                            <td>{{ i.area }} </td>
+                            <td>{{i.population}} </td>
+                            <td>{{i.flag}} </td>
+                        </tr>
+                        {% endfor %}
+
+                    </table>
+
+
+                </div>
+            </div>
+    </div>
+
 </body>
-
-<!--<script>-->
-
-<!--        // <block:setup:1>-->
-<!--        const data = {-->
-<!--          labels: {{ contryNames|safe  }},-->
-<!--          datasets: [{-->
-<!--            label: 'My First dataset',-->
-<!--            backgroundColor: 'rgb(255, 99, 132)',-->
-<!--            borderColor: 'rgb(255, 99, 132)',-->
-<!--            data: {{ bordrsLen|safe }},-->
-<!--          }]-->
-<!--        };-->
-<!--        // </block:setup>-->
-
-<!--        // <block:config:0>-->
-<!--        const config = {-->
-<!--          type: 'line',-->
-<!--          data,-->
-<!--          options: {}-->
-<!--        };-->
-<!--        // </block:config>-->
-
-<!--        module.exports = {-->
-<!--          actions: [],-->
-<!--          config: config,-->
-<!--        };-->
-
-<!--</script>-->
-<!--<script>-->
-<!--  // === include 'setup' then 'config' above ===-->
-
-<!--  var myChart = new Chart(-->
-<!--    document.getElementById('myChart'),-->
-<!--    config-->
-<!--  );-->
-<!--</script>-->
-
 
 <script>
 
     var ctx = document.getElementById('myChart').getContext('2d');
-    var chartOptions = {
-                            legend: {
-                                display: false
-                                    },
-                            scales: {
-                                xAxes: [{
-                                    barPercentage:1
-                                    }],
-                                yAxes: [
-                                        // {barPercentage: 1},
-                                        // {gridLines:{drawBorder: false}},
-                                        {ticks: {display:false}},
-                                        // {ticks: {mirror: true}},
-                                        {display: false},
-
-                                        ],
-                            elements: {
-                                rectangle: {
-                                borderSkipped: 'left',
-                                }
-                            }
-                            }
-                        };
     var chart = new Chart(ctx, {
         // The type of chart we want to create
         type: 'horizontalBar',
@@ -167,19 +123,143 @@
         data: {
             labels: {{ contryNames|safe }},
             datasets: [{
+                axis: 'y',
                 data: {{ bordrsLen|safe }},
                 label: 'Border Length',
                 barThickness:'flex',
+                fill: false,
                 backgroundColor:'#03a9fc',
 
             }]
         },
-
-
-
-        // Configuration options go here
-        options: chartOptions
+         // Configuration options go here
+        options: {
+            indexAxis: 'y',
+          }
 });
 </script>
+
+<!--<script>-->
+<!--    data2 ={{dataForMapGraph|safe}};-->
+<!--    Highcharts.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/world-population-density.json', function (data) {-->
+
+<!--    // Prevent logarithmic errors in color calulcation-->
+<!--    data.forEach(function (p) {-->
+<!--        p.value = (p.value < 1 ? 1 : p.value);-->
+<!--    });-->
+
+<!--    // Initiate the chart-->
+<!--    Highcharts.mapChart('mapChart', {-->
+
+<!--        chart: {-->
+<!--            map: 'custom/world'-->
+<!--        },-->
+
+<!--        title: {-->
+<!--            text: 'World Map for reference'-->
+<!--        },-->
+
+<!--        legend: {-->
+<!--            title: {-->
+<!--                text: 'Population density per km²',-->
+<!--                style: {-->
+<!--                    color: ( // theme-->
+<!--                        Highcharts.defaultOptions &&-->
+<!--                        Highcharts.defaultOptions.legend &&-->
+<!--                        Highcharts.defaultOptions.legend.title &&-->
+<!--                        Highcharts.defaultOptions.legend.title.style &&-->
+<!--                        Highcharts.defaultOptions.legend.title.style.color-->
+<!--                    ) || 'black'-->
+<!--                }-->
+<!--            }-->
+<!--        },-->
+
+<!--        mapNavigation: {-->
+<!--            enabled: true,-->
+<!--            buttonOptions: {-->
+<!--                verticalAlign: 'bottom'-->
+<!--            }-->
+<!--        },-->
+
+<!--        tooltip: {-->
+<!--            backgroundColor: 'none',-->
+<!--            borderWidth: 0,-->
+<!--            shadow: false,-->
+<!--            useHTML: true,-->
+<!--            padding: 0,-->
+<!--            pointFormat: '<span class="f32"><span class="flag {point.properties.hc-key}">' +-->
+<!--                '</span></span> {point.name}<br>' +-->
+<!--                '<span style="font-size:30px">{point.value}/km²</span>',-->
+<!--            positioner: function () {-->
+<!--                return { x: 0, y: 250 };-->
+<!--            }-->
+<!--        },-->
+
+<!--        colorAxis: {-->
+<!--            min: 1,-->
+<!--            max: 1000,-->
+<!--            type: 'logarithmic'-->
+<!--        },-->
+
+<!--        series: [{-->
+<!--            data: data2,-->
+<!--            joinBy: ['iso-a3', 'code3'],-->
+<!--            name: 'Population density',-->
+<!--            states: {-->
+<!--                hover: {-->
+<!--                    color: '#a4edba'-->
+<!--                }-->
+<!--            }-->
+<!--        }]-->
+<!--    });-->
+<!--});-->
+
+<!--</script>-->
+
+
+<!--<script>-->
+
+<!--    data2={{dataForMapGraph|safe}};-->
+
+<!--    // Initiate the chart-->
+<!--    Highcharts.mapChart('mapChart', {-->
+
+<!--        chart: {-->
+<!--            map: 'custom/world'-->
+<!--        },-->
+
+<!--        title: {-->
+<!--            text: 'World Map'-->
+<!--        },-->
+
+
+<!--        mapNavigation: {-->
+<!--            enabled: true,-->
+<!--            buttonOptions: {-->
+<!--                verticalAlign: 'bottom'-->
+<!--            }-->
+<!--        },-->
+
+<!--        colorAxis: {-->
+<!--                min: 1,-->
+<!--                max: 1000,-->
+<!--                type: 'logarithmic'-->
+<!--            },-->
+
+<!--&lt;!&ndash;        series: [{&ndash;&gt;-->
+<!--&lt;!&ndash;            data: data2,&ndash;&gt;-->
+<!--&lt;!&ndash;            joinBy: ['iso-a3', 'code3'],&ndash;&gt;-->
+<!--&lt;!&ndash;            name: 'Infected Counts',&ndash;&gt;-->
+<!--&lt;!&ndash;            states: {&ndash;&gt;-->
+<!--&lt;!&ndash;                hover: {&ndash;&gt;-->
+<!--&lt;!&ndash;                    color: '#a4edba'&ndash;&gt;-->
+<!--&lt;!&ndash;                }&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+<!--&lt;!&ndash;        }]&ndash;&gt;-->
+<!--    });-->
+<!--    });-->
+
+<!--</script>-->
+
 
 </html>
