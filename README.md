@@ -1,6 +1,8 @@
 # Domin_task User Manual
-##Task1
-Develop a simple web application with the following features:
+## Task1
+
+**Develop a Simple Web Application with the following features:**
+
 Create a simple dashboard(web page) with following content:
 
 * Bar Chart 
@@ -9,7 +11,7 @@ Create a simple dashboard(web page) with following content:
 
 * Pdf Generator 
 
-#Solution/Steps
+# Solution/Steps
 For running this application User need to following steps.
 
 **Step1:** Download the latest version of python, for this i am using python 3.8.
@@ -60,12 +62,13 @@ Then Server will start and provide url.
 
 **eg.** "http://127.0.0.1:8000"
 Copy this URL and past in this browser.
-Then Domin Task dashboard will be display with above task.
+Then Task dashboard will be display with above task.
 
 ![img_6.png](dashboard.png)
 
 
 **Step11:** Generate pdf of the dashboard content
+
 To get pdf User need to click on the **Generate PDF** button then new window will oben
 with pdf file.
 User can download this file or can take print out.
