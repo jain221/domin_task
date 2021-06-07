@@ -18,7 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <head>
         <meta charset="UTF-8">
-        <title>DASHBOARD</title>
+        <title>TASK DASHBOARD</title>
         <style>
             table,th,td {border: lpx solid black;}
         </style>
@@ -82,16 +82,40 @@
           padding: 10px;
           text-shadow: 1px 1px 1px #fff;
         }
+        .button {
+          border: none;
+          color: white;
+          padding: 16px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          transition-duration: 0.4s;
+          cursor: pointer;
+        }
+        .button1 {
+          background-color: white;
+          color: black;
+          border: 2px solid #4CAF50;
+        }
+
+        .button1:hover {
+          background-color: #4CAF50;
+          color: white;
+        }
+
     </style>
 </head>
 <body>
     <div class="fixed-header">
             <div class>
                 <nav>
-                    <a href="/"><span style="font-size: 40px;">Domin DashBoard</span></a>
+                    <a href="/"><span style="font-size: 40px;">DASHBOARD</span></a>
                 </nav>
             </div>
     </div>
+
     <div>
             <div class="col-lg-3" style="float: left;  max-height: 650px;max-width:400px; overflow-x:hidden;">
                 <div style="background-color: rgb(41, 41, 40);">
@@ -110,7 +134,8 @@
             </div>
 
             <div class="col-lg-3" style="float: centre;  max-height: 650px;max-width:800px; overflow-x:hidden;">
-                 <div style="background-color: rgb(41, 41, 40);">
+
+                <div style="background-color: rgb(41, 41, 40);">
 
                     <span style="color: rgb(255, 255, 255); text-align: center;"><h2>List of Countries with China Borders</h2></span>
                 </div>
@@ -139,6 +164,16 @@
 
                 </div>
             </div>
+
+             <form method="post"  action="generatePDF">
+                 {% csrf_token %}
+                 <div class="col-lg-9" style="float: left;  max-height: 650px;max-width:800px;">
+                     <br>
+
+                     <input type="submit" value = "Generate PDF"  name="countryName" style="width:200px; height:40px; background-color: #4CAF50;
+          color: white;">
+                 </div>
+             </form>
     </div>
 
 </body>
@@ -169,128 +204,5 @@
           }
 });
 </script>
-
-<!--<script>-->
-<!--    data2 ={{dataForMapGraph|safe}};-->
-<!--    Highcharts.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/world-population-density.json', function (data) {-->
-
-<!--    // Prevent logarithmic errors in color calulcation-->
-<!--    data.forEach(function (p) {-->
-<!--        p.value = (p.value < 1 ? 1 : p.value);-->
-<!--    });-->
-
-<!--    // Initiate the chart-->
-<!--    Highcharts.mapChart('mapChart', {-->
-
-<!--        chart: {-->
-<!--            map: 'custom/world'-->
-<!--        },-->
-
-<!--        title: {-->
-<!--            text: 'World Map for reference'-->
-<!--        },-->
-
-<!--        legend: {-->
-<!--            title: {-->
-<!--                text: 'Population density per km²',-->
-<!--                style: {-->
-<!--                    color: ( // theme-->
-<!--                        Highcharts.defaultOptions &&-->
-<!--                        Highcharts.defaultOptions.legend &&-->
-<!--                        Highcharts.defaultOptions.legend.title &&-->
-<!--                        Highcharts.defaultOptions.legend.title.style &&-->
-<!--                        Highcharts.defaultOptions.legend.title.style.color-->
-<!--                    ) || 'black'-->
-<!--                }-->
-<!--            }-->
-<!--        },-->
-
-<!--        mapNavigation: {-->
-<!--            enabled: true,-->
-<!--            buttonOptions: {-->
-<!--                verticalAlign: 'bottom'-->
-<!--            }-->
-<!--        },-->
-
-<!--        tooltip: {-->
-<!--            backgroundColor: 'none',-->
-<!--            borderWidth: 0,-->
-<!--            shadow: false,-->
-<!--            useHTML: true,-->
-<!--            padding: 0,-->
-<!--            pointFormat: '<span class="f32"><span class="flag {point.properties.hc-key}">' +-->
-<!--                '</span></span> {point.name}<br>' +-->
-<!--                '<span style="font-size:30px">{point.value}/km²</span>',-->
-<!--            positioner: function () {-->
-<!--                return { x: 0, y: 250 };-->
-<!--            }-->
-<!--        },-->
-
-<!--        colorAxis: {-->
-<!--            min: 1,-->
-<!--            max: 1000,-->
-<!--            type: 'logarithmic'-->
-<!--        },-->
-
-<!--        series: [{-->
-<!--            data: data2,-->
-<!--            joinBy: ['iso-a3', 'code3'],-->
-<!--            name: 'Population density',-->
-<!--            states: {-->
-<!--                hover: {-->
-<!--                    color: '#a4edba'-->
-<!--                }-->
-<!--            }-->
-<!--        }]-->
-<!--    });-->
-<!--});-->
-
-<!--</script>-->
-
-
-<!--<script>-->
-
-<!--    data2={{dataForMapGraph|safe}};-->
-
-<!--    // Initiate the chart-->
-<!--    Highcharts.mapChart('mapChart', {-->
-
-<!--        chart: {-->
-<!--            map: 'custom/world'-->
-<!--        },-->
-
-<!--        title: {-->
-<!--            text: 'World Map'-->
-<!--        },-->
-
-
-<!--        mapNavigation: {-->
-<!--            enabled: true,-->
-<!--            buttonOptions: {-->
-<!--                verticalAlign: 'bottom'-->
-<!--            }-->
-<!--        },-->
-
-<!--        colorAxis: {-->
-<!--                min: 1,-->
-<!--                max: 1000,-->
-<!--                type: 'logarithmic'-->
-<!--            },-->
-
-<!--&lt;!&ndash;        series: [{&ndash;&gt;-->
-<!--&lt;!&ndash;            data: data2,&ndash;&gt;-->
-<!--&lt;!&ndash;            joinBy: ['iso-a3', 'code3'],&ndash;&gt;-->
-<!--&lt;!&ndash;            name: 'Infected Counts',&ndash;&gt;-->
-<!--&lt;!&ndash;            states: {&ndash;&gt;-->
-<!--&lt;!&ndash;                hover: {&ndash;&gt;-->
-<!--&lt;!&ndash;                    color: '#a4edba'&ndash;&gt;-->
-<!--&lt;!&ndash;                }&ndash;&gt;-->
-<!--&lt;!&ndash;            }&ndash;&gt;-->
-<!--&lt;!&ndash;        }]&ndash;&gt;-->
-<!--    });-->
-<!--    });-->
-
-<!--</script>-->
-
 
 </html>

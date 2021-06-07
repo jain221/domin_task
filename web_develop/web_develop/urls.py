@@ -18,7 +18,9 @@ from django.urls import path,include
 from django.conf.urls import url
 from dashboard import views
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url('^$',views.indexPage,name='index'),
+    url('^$',views.indexPage, name='index'),
+    url('generatePDF',views.generatePDF,name='generatePDF'),
 ]

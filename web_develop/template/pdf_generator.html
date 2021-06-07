@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+         <script src="https://d3js.org/d3.v4.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+        <script src="https://code.highcharts.com/maps/modules/data.js"></script>
+        <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/maps/modules/offline-exporting.js"></script>
+        <script src="https://code.highcharts.com/mapdata/custom/world.js"></script>
+        <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PDF of Dashboard</title>
+        <style type="text/css">
+            body {
+                font-weight: 200;
+                font-size: 14px;
+            }
+            .header {
+                font-size: 20px;
+                font-weight: 100;
+                text-align: center;
+                color: #007cae;
+            }
+            .title {
+                font-size: 22px;
+                font-weight: 100;
+               /* text-align: right;*/
+               padding: 10px 20px 0px 20px;
+            }
+            .title span {
+                color: #007cae;
+            }
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+                /*margin-left: 40%;*/
+            }
+            .hrItem {
+                border: none;
+                height: 1px;
+                /* Set the hr color */
+                color: #333; /* old IE */
+                background-color: #fff; /* Modern Browsers */
+            }
+            table {
+              font-family: arial, sans-serif;
+              border-collapse: collapse;
+              width: 100%;
+            }
+            th {
+              background-color: #DDEFEF;
+              border: solid 1px ;
+              text-align: left;
+              color: #336B6B;
+              padding: 0px;
+              text-shadow: 1px 1px 1px #fff;
+            }
+        </style>
+    </head>
+ <body>
+    <div class="fixed-header">
+            <div class>
+                <nav>
+                    <a href="/"><span style="font-size: 40px;">Contents of Dashboard</span></a>
+                </nav>
+            </div>
+    </div>
+
+    <div>
+            <div>
+                <div style="background-color: rgb(41, 41, 40);">
+
+                    <span style="color: rgb(255, 255, 255); text-align: center;"><h2>Top 10 countries list</h2></span>
+                </div>
+
+                <div>
+
+                    <table class="myTable" border="1" cellpadding="5" cellspacing="5">
+
+                        <tr>
+                        <th> Name</a></th>
+                        <th > Total  borders</th>
+                        </tr>
+                        {% for i in list_top_ten_countries %}
+                        <tr>
+                            <td>{{ i.name }} </td>
+                            <td>{{ i.value }} </td>
+                        </tr>
+                        {% endfor %}
+
+                    </table>
+
+            </div>
+
+            <div>
+
+                <div style="background-color: rgb(41, 41, 40);">
+
+                    <span style="color: rgb(255, 255, 255); text-align: center;"><h2>List of Countries with China Borders</h2></span>
+                </div>
+                <div>
+                    <table class="myTable" border="1" cellpadding="2" cellspacing="3">
+
+                        <tr>
+                        <th> Name</a></th>
+                        <th > Region </th>
+                        <th > Area </th>
+                        <th > Population </th>
+                        <th > Flag </th>
+                        </tr>
+                        {% for i in data%}
+                        <tr>
+                            <td>{{ i.name }} </td>
+                            <td>{{ i.region }} </td>
+                            <td>{{ i.area }} </td>
+                            <td>{{i.population}} </td>
+                            <td>{{i.flag}} </td>
+                        </tr>
+                        {% endfor %}
+
+                    </table>
+
+
+                </div>
+            </div>
+
+
+    </div>
+
+</body>
+  <script>
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'horizontalBar',
+
+        // The data for our dataset
+        data: {
+            labels: {{ contryNames|safe }},
+            datasets: [{
+                axis: 'y',
+                data: {{ bordrsLen|safe }},
+                label: 'Border Length',
+                barThickness:'flex',
+                fill: false,
+                backgroundColor:'#03a9fc',
+
+            }]
+        },
+         // Configuration options go here
+        options: {
+            indexAxis: 'y',
+          }
+});
+</script>
+</html>
